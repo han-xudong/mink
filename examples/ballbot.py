@@ -62,8 +62,8 @@ if __name__ == "__main__":
     data = configuration.data
     solver = "daqp"
 
-    left_phone_subscriber = PhoneSubscriber(host="192.168.31.208", port=8000)
-    right_phone_subscriber = PhoneSubscriber(host="192.168.31.194", port=8000)
+    left_phone_subscriber = PhoneSubscriber(host="192.168.31.40", port=8000)
+    right_phone_subscriber = PhoneSubscriber(host="192.168.31.128", port=8000)
     # x-right, y-up, z-back to x-forward, y-left, z-up
     phone_pose_conv_mat = np.array(
         [
@@ -199,6 +199,7 @@ if __name__ == "__main__":
             head_tasks[0].set_target(mink.SE3.from_rotation(mink.SO3.from_rpy_radians(roll=0.0, pitch=head_pitch, yaw=head_yaw)))
             
             vel = mink.solve_ik(configuration, tasks, rate.dt, solver, 1e-1)
+            print(vel)
             configuration.integrate_inplace(vel, rate.dt)
             mujoco.mj_camlight(model, data)
 
